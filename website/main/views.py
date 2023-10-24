@@ -1,22 +1,50 @@
 from django.shortcuts import render, redirect
 from .forms import RegisterForm
 from django.contrib.auth import login, logout, authenticate
+import requests
+import json
+
 
 def home(request):
-	#ozon_id = None
-	#ozon_key = None
+    # ... your existing code ...
+    name_and_password = request.user.last_name
+    split_data = name_and_password.split("___")
+    sklad_user = split_data[0]
+    sklad_password = split_data[1]
 
-	#if request.user.is_authenticated:
-		# Если пользователь аутентифицирован, получаем его ozon_id и ozon_key
-	#	ozon_id = request.user.ozon_id  # Предположим, что ozon_id хранится в поле модели пользователя user.ozon_id
-	#	ozon_key = request.user.ozon_key  # Предположим, что ozon_key хранится в поле модели пользователя user.ozon_key
+    products = [
+        {'Имя': request.user.last_name,
+         'Артикул': '880982069 2788',
+         'Количество': 10.0,
+         'SKLAD': 'moy_sklad'},
+         {'Имя': 'Стрейч пленка 500 мм (3й сорт)',
+         'Артикул': '880982069 2789',
+         'Количество': 2.0,
+         'SKLAD': 'moy_sklad'},
+    ]
 
-	#context = {
-	#	'ozon_id': ozon_id,
-	#	'ozon_key': ozon_key
-	#}
+    # Укажите базовый URL для API МойСклад
+    base_url = 'https://api.moysklad.ru/api/remap/1.2/report/stock/all'
 
-	return render(request, 'main/home.html')#, context)
+    # Создание сессии для авторизации
+    session = requests.Session()
+    session.auth = (sklad_user, sklad_password)
+    # Выполнение запроса для получения остатков товаров
+    response = session.get(base_url)
+    response_json = response.json()
+    # Извлечение артикула и количества товара
+    products = []
+    for product in response_json['rows']:
+    	product_data = {
+    		'Имя': product['name'],
+        	'Артикул': product['code'],
+        	'Количество': product['stock'],
+        	'SKLAD': 'moy_sklad'
+    	}
+    	products.append(product_data)
+
+    
+    return render(request, 'main/home.html', {'products': products})
 
 def sign_up(request):
 	if request.method == 'POST':
