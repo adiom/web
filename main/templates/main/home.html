@@ -7,4 +7,33 @@
  SKLAD: {{ user.last_name }} <br />
  ИНН + email: {{ user.email }} <br />
  Зашифрованный пароль: {{ user.password }}
+
+ <table>
+   <thead>
+     <tr>
+       <th>Порядковый номер</th>
+       <th>Наименование</th>
+       <th>Штрих код</th>
+       <th>Собственник</th>
+       <th>Склад-остатки</th>
+       <th>Озон-остатки</th>
+       <th>Яндекс-Остатки</th>
+       <th>Сбермаркет-остатки</th>
+     </tr>
+   </thead>
+   <tbody>
+     {% for product in products %}
+     <tr>
+       <td>{{ forloop.counter }}</td>
+       <td>{{ product.Имя }}</td>
+       <td>{{ product.Артикул }}</td>
+       <td>{{ product.SKLAD }}</td>
+       <td>{{ product.Количество }}</td>
+       <td></td>
+       <td></td>
+       <td></td>
+     </tr>
+     {% endfor %}
+   </tbody>
+ </table>
 {% endblock %}
