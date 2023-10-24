@@ -1,0 +1,10 @@
+{% extends 'main/base.html' %}
+{% block title %} WEB {% endblock %}
+{% block content %}
+ <h1> H!I </h1>
+ Аккаунт: {{ user }} </br>
+ OZON: {{ user.first_name }} <br />
+ SKLAD: {{ user.last_name }} <br />
+ ИНН + email: {{ user.email }} <br />
+ Зашифрованный пароль: {{ user.password }}
+{% endblock %}
