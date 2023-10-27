@@ -1,8 +1,5 @@
-{% extends 'main/base.html' %}
-{% block title %} WEB {% endblock %}
-{% block content %}
 <style type="text/css">
-    /*
+	/*
   Template Name: Dashboard Fillru
   Author: amenbrothers
   Made on: Twitter Bootstrap 5
@@ -4727,75 +4724,3 @@ Mini sidebar
   }
 
 </style>
-
- <!-- h1> H!I </h1>
-</br>
- OZON: {{ user.first_name }} <br />
- SKLAD: {{ user.last_name }} <br />
- ИНН + email: {{ user.email }} <br />
- Зашифрованный пароль: {{ user.password }} -->
-
-<header class="topbar ">
-            <nav class="navbar top-navbar navbar-expand-md navbar-light">
-                <!-- Logo -->
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="#">
-                        <img src="/assets/images/logo-black.svg" alt="homepage" style="width: 92px;" />
-                    </a>
-                </div>
-                <div class="navbar-collapse">
-                    <ul class="navbar-nav mr-auto">
-                        <!-- Search Form -->
-
-                        <li class="nav-item search-box">
-                            <a class="nav-link waves-effect waves-dark" href="javascript:void(0)">
-                                <i class="fa fa-search"></i>
-                            </a>
-                            <form class="app-search">
-                                <input type="text" class="form-control" placeholder="Чтобы отфильтровать позиции, введите заводской штрих код, либо наименование товара"> 
-                                <a class="srh-btn"><i class="fa fa-times"></i></a>
-                            </form>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav my-lg-0 mr-2">
-                        <li class="nav-item dropdown">
-                            Аккаунт: {{ user }} 
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="auth.html" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-sign-out"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </header>
-
-<table class="table table-hover">
-    <thead class="bold">
-        <tr>
-            <th class="text-center"><b>#</b></th>
-            <th><b>НАИМЕНОВАНИЕ ПРОДУКТА</b></th>
-            <th><b>ШТРИХ КОД</b></th>
-            <th><b>FILLRU</b></th>
-            <th><b>OZON</b></th>
-            <th><b>WB</b></th>
-            <th><b>СБЕР</b></th>
-            <th><b>AVITO</b></th>
-        </tr>
-    </thead>
-    <tbody>
-     {% for product in products %}
-        <tr>
-            <td class="text-center">{{ forloop.counter }}</td>
-            <td class="txt-oflo">{{ product.Имя }}</td>
-            <td class="txt-sucess">{{ product.SKLAD }} + {{ product.Артикул }}</td>
-            <td><span class="text-success">{{ product.Количество }}</span></td>
-            <td><span class="text-warning">-</span></td>
-            <td><span>-</span></td>
-            <td><span>-</span></td>
-            <td><span>-</span></td>
-        </tr>
-    {% endfor %} 
-    </tbody>
-</table>
-
-{% endblock %}
