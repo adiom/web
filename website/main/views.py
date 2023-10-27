@@ -19,7 +19,7 @@ def home(request):
 	for product in response_json['rows']:
 		product_data = {
 			'Имя': product['name'],
-			'Артикул': product['code'],
+			'Артикул': product['article'],
 			'Количество': product['stock'],
 			'SKLAD': 'moy_sklad'
 			}
