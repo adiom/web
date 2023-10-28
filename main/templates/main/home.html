@@ -4740,7 +4740,7 @@ Mini sidebar
                 <!-- Logo -->
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#">
-                        <img src="/assets/images/logo-black.svg" alt="homepage" style="width: 92px;" />
+                        <img src="/static/logo-black.svg" alt="homepage" style="width: 92px;" />
                     </a>
                 </div>
                 <div class="navbar-collapse">
@@ -4760,8 +4760,8 @@ Mini sidebar
                     <ul class="navbar-nav my-lg-0 mr-2">
                         <li class="nav-item dropdown">
                             Аккаунт: {{ user }} 
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="auth.html" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-sign-out"></i>
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="/login" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-sign-out">Выход</i>
                             </a>
                         </li>
                     </ul>
@@ -4769,33 +4769,37 @@ Mini sidebar
             </nav>
         </header>
 
-<table class="table table-hover">
-    <thead class="bold">
-        <tr>
-            <th class="text-center"><b>#</b></th>
-            <th><b>НАИМЕНОВАНИЕ ПРОДУКТА</b></th>
-            <th><b>ШТРИХ КОД</b></th>
-            <th><b>FILLRU</b></th>
-            <th><b>OZON</b></th>
-            <th><b>WB</b></th>
-            <th><b>СБЕР</b></th>
-            <th><b>AVITO</b></th>
-        </tr>
-    </thead>
-    <tbody>
-     {% for product in products %}
-        <tr>
-            <td class="text-center">{{ forloop.counter }}</td>
-            <td class="txt-oflo">{{ product.Имя }}</td>
-            <td class="txt-sucess">{{ product.SKLAD }} + {{ product.Артикул }}</td>
-            <td><span class="text-success">{{ product.Количество }}</span></td>
-            <td><span class="text-warning">-</span></td>
-            <td><span>-</span></td>
-            <td><span>-</span></td>
-            <td><span>-</span></td>
-        </tr>
-    {% endfor %} 
-    </tbody>
-</table>
+<div class="page-wrapper">
+  <div class="container-fluid">
+    <table class="table table-hover">
+        <thead class="bold">
+            <tr>
+                <th class="text-center"><b>#</b></th>
+                <th><b>НАИМЕНОВАНИЕ ПРОДУКТА</b></th>
+                <th><b>ШТРИХ КОД</b></th>
+                <th><b>FILLRU</b></th>
+                <th><b>OZON</b></th>
+                <th><b>WB</b></th>
+                <th><b>СБЕР</b></th>
+                <th><b>AVITO</b></th>
+            </tr>
+        </thead>
+        <tbody>
+         {% for product in products %}
+            <tr>
+                <td class="text-center">{{ forloop.counter }}</td>
+                <td class="txt-oflo">{{ product.Имя }}</td>
+                <td class="txt-sucess">{{ product.Артикул }}</td>
+                <td><span class="text-success">{{ product.Количество }}</span></td>
+                <td><span class="text-warning">-</span></td>
+                <td><span>-</span></td>
+                <td><span>-</span></td>
+                <td><span>-</span></td>
+            </tr>
+        {% endfor %} 
+        </tbody>
+    </table>
+  </div>
+</div>
 
 {% endblock %}
