@@ -3,7 +3,34 @@ from .forms import RegisterForm
 from django.contrib.auth import login, logout, authenticate
 import requests
 import json
+import time
 
+def get_ozon(client_id, client_api, article):
+    url = "https://api-seller.ozon.ru/v3/product/info/stocks"
+    headers = {
+        "Client-Id": client_id, #"407319",
+        "Api-Key": client_api #"5c75bafa-953b-43f3-8dbd-403f99ac5ee2"
+        }
+
+    body = {
+        "filter" : { "offer_id": [article] }, "limit": "1"
+    }
+
+    try:
+        response = requests.post(url, headers=headers, json=body)
+        data = response.json()
+        if response.status_code == 200:
+            total_products = data["result"]["items"]
+            if total_products:
+                return total_products[0]['stocks'][1]['present']
+            else:
+                return 0
+            #print("Total number of products:", total_products)
+        else:
+            #print("Request failed with status code:", response.status_code)
+            return("Error message:", data["message"])
+    except requests.exceptions.RequestException as e:
+            return("Request failed:", e)
 
 def home(request):
     base_url = 'https://api.moysklad.ru/api/remap/1.2/report/stock/all'
@@ -40,7 +67,7 @@ def home(request):
                 'Имя': product['name'],
                 'Артикул': product['article'],
                 'Количество': product['stock'],
-                'SKLAD': 'moy_sklad'
+                'Ozon': get_ozon("407319", "5c75bafa-953b-43f3-8dbd-403f99ac5ee2", product['article'])
             }
             products.append(product_data)
     
