@@ -8,8 +8,8 @@ import time
 def get_ozon(client_id, client_api, article):
     url = "https://api-seller.ozon.ru/v3/product/info/stocks"
     headers = {
-        "Client-Id": client_id, #"407319",
-        "Api-Key": client_api #"5c75bafa-953b-43f3-8dbd-403f99ac5ee2"
+        "Client-Id": client_id,
+        "Api-Key": client_api 
         }
 
     body = {
@@ -20,6 +20,7 @@ def get_ozon(client_id, client_api, article):
         response = requests.post(url, headers=headers, json=body)
         data = response.json()
         if response.status_code == 200:
+            print(body)
             total_products = data["result"]["items"]
             if total_products:
                 return total_products[0]['stocks'][1]['present']
@@ -35,6 +36,8 @@ def get_ozon(client_id, client_api, article):
 def home(request):
     base_url = 'https://api.moysklad.ru/api/remap/1.2/report/stock/all'
     name_and_password = request.user.last_name
+    print(request.user.last_name)
+    ozon_id_and_ozon_key = request.user.first_name
     INN_and_email = request.user.email
 
     split_data = name_and_password.split("___")
@@ -43,6 +46,9 @@ def home(request):
     split_data = INN_and_email.split("___")
     INN = split_data[0]
     email = split_data[1]
+    split_data = ozon_id_and_ozon_key.split("___")
+    ozon_id = split_data[0]
+    ozon_key = split_data[1]
     
     session = requests.Session()
     session.auth = (sklad_user, sklad_password)
@@ -67,7 +73,7 @@ def home(request):
                 'Имя': product['name'],
                 'Артикул': product['article'],
                 'Количество': product['stock'],
-                'Ozon': get_ozon("407319", "5c75bafa-953b-43f3-8dbd-403f99ac5ee2", product['article'])
+                'Ozon': get_ozon(ozon_id, ozon_key, product['article'])
             }
             products.append(product_data)
     
